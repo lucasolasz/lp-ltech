@@ -23,11 +23,21 @@ export function SnapCarousel({ children, className }: { children: ReactNode; cla
 
   useEffect(() => {
     if (!emblaApi) return;
-    const update = () => setActive(emblaApi.selectedScrollSnap());
+    // Embla only changes selectedScrollSnap on pointer release, so the pager lagged a whole
+    // swipe behind. Track the snap nearest to the live scroll position instead.
+    const update = () => {
+      const progress = emblaApi.scrollProgress();
+      const snaps = emblaApi.scrollSnapList();
+      let nearest = 0;
+      snaps.forEach((snap, i) => {
+        if (Math.abs(snap - progress) < Math.abs(snaps[nearest] - progress)) nearest = i;
+      });
+      setActive(nearest);
+    };
     update();
-    emblaApi.on("select", update).on("reInit", update);
+    emblaApi.on("scroll", update).on("reInit", update);
     return () => {
-      emblaApi.off("select", update).off("reInit", update);
+      emblaApi.off("scroll", update).off("reInit", update);
     };
   }, [emblaApi]);
 
