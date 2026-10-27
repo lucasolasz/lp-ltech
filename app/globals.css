@@ -19,6 +19,7 @@
   --color-lamber: #ffb36b;
   --color-lflame: #ff8a3d;
   --color-lpeach: #ffc08a;
+  --color-lrust: #b34700; /* orange dark enough for text on light backgrounds (AA) */
   --color-ok: #3ddc97;
   --color-mint: #7df0b9;
 
@@ -42,6 +43,7 @@
   --animate-drift: drift 16s ease-in-out infinite;
   --animate-scan: scan 5s ease-in-out infinite;
   --animate-typing: typing 1s infinite;
+  --animate-rise: rise 1.1s var(--ease-out-soft) both;
 
   @keyframes drift {
     33% { transform: translate(40px, -30px) scale(1.08); }
@@ -49,6 +51,9 @@
   }
   @keyframes scan {
     50% { transform: translate(150px, 0); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(var(--rise-y, 32px)); }
   }
   @keyframes typing {
     50% { opacity: 0.3; transform: translateY(-2px); }
@@ -102,5 +107,14 @@
   h2,
   h3 {
     @apply leading-[1.02] font-extralight tracking-[-0.035em];
+  }
+}
+
+/* Ambient loops stop for people who asked the system to reduce motion. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift,
+  .animate-scan,
+  .animate-typing {
+    animation: none;
   }
 }

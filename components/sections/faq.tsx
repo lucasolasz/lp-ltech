@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useState } from "react";
 import { Blob, h2Class, Kicker, sectionPad, Wrap } from "@/components/ui/primitives";
 import { Reveal } from "@/components/ui/reveal";
@@ -68,20 +68,17 @@ export function Faq() {
                     +
                   </i>
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`faq-${i}`}
-                      initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
-                      exit={{ height: 0 }}
-                      transition={{ duration: 0.6, ease: EASE }}
-                      className="overflow-hidden"
-                    >
-                      <p className="max-w-175 pb-6.5 text-[15.5px] text-ink/60">{answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Answers stay in the served HTML (crawlers read them); closed ones are collapsed and inert. */}
+                <motion.div
+                  id={`faq-${i}`}
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0 }}
+                  transition={{ duration: 0.6, ease: EASE }}
+                  inert={!isOpen}
+                  className="h-0 overflow-hidden"
+                >
+                  <p className="max-w-175 pb-6.5 text-[15.5px] text-ink/65">{answer}</p>
+                </motion.div>
               </div>
             );
           })}

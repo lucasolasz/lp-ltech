@@ -14,7 +14,7 @@ export default function NotFound() {
   return (
     <>
       <PageHeader />
-      <main className="bg-cream py-24 text-ink md:py-36">
+      <main id="conteudo" tabIndex={-1} className="bg-cream py-24 text-ink outline-none md:py-36">
         <Wrap>
           <Kicker>Erro 404</Kicker>
           <h1 className="mt-5 mb-5 text-[42px] md:text-[72px]">Página não encontrada.</h1>

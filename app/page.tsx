@@ -19,7 +19,7 @@ export default function Home() {
     <>
       <JsonLd data={homeJsonLd} />
       <Header />
-      <main>
+      <main id="conteudo" tabIndex={-1} className="outline-none">
         <Hero />
         <Solutions />
         <Method />

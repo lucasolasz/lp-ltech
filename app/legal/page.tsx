@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalArticle } from "@/components/legal";
+import { pageMetadata } from "@/lib/metadata";
 import { LEGAL_PAGES } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Legal",
   description: "Políticas e termos da LTECH: privacidade, cookies, termos de uso e termos de serviço.",
-  alternates: { canonical: "/legal" },
-};
+  path: "/legal",
+});
 
 export default function LegalIndex() {
   return (
@@ -16,7 +17,7 @@ export default function LegalIndex() {
       <ul className="mt-8 list-none! pl-0!">
         {LEGAL_PAGES.map((page) => (
           <li key={page.href} className="mb-0! border-b border-ink/10 py-5 first:border-t">
-            <Link href={page.href} className="text-xl font-light text-ink! no-underline! hover:text-lorange!">
+            <Link href={page.href} className="text-xl font-light text-ink! no-underline! hover:text-lrust!">
               {page.label}
             </Link>
             <p className="mt-1 mb-0!">{page.summary}</p>

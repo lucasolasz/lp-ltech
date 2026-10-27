@@ -61,7 +61,7 @@ export function SnapCarousel({ children, className }: { children: ReactNode; cla
             />
           ))}
         </div>
-        <span className="font-mich text-[9px] tracking-[.25em] opacity-50">
+        <span className="font-mich text-[9px] tracking-[.25em] opacity-65">
           {pad(active + 1)} / {pad(count)}
         </span>
       </div>

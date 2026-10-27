@@ -3,7 +3,7 @@
 import { useLenis } from "lenis/react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NAV_LINKS } from "@/lib/site";
 import { btn, cx, EASE } from "@/lib/styles";
 import logoBlack from "@/public/images/logo-ltech-black.png";
@@ -50,6 +50,7 @@ function useHeaderState() {
 export function Header() {
   const { theme, atTop, active } = useHeaderState();
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const lenis = useLenis();
   const dark = theme === "dark" || open;
 
@@ -59,9 +60,30 @@ export function Header() {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open, lenis]);
 
+  // While the menu is open, focus starts on its first link and Tab cycles between the toggle and the menu.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const toggle = toggleRef.current;
+    const focusables = () => [toggle, ...document.querySelectorAll<HTMLElement>("#mobile-menu a")].filter((el) => el !== null);
+    focusables()[1]?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggle?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     const desktop = window.matchMedia("(min-width: 65.625rem)");
     const onDesktop = () => desktop.matches && setOpen(false);
     addEventListener("keydown", onKey);
@@ -126,6 +148,7 @@ export function Header() {
               Diagnóstico gratuito
             </a>
             <button
+              ref={toggleRef}
               type="button"
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               aria-expanded={open}

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalArticle, Review } from "@/components/legal";
+import { pageMetadata } from "@/lib/metadata";
 import { LTECH_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Termos de uso",
   description: "Regras para usar o site da LTECH e o seu conteúdo.",
-  alternates: { canonical: "/legal/termos-de-uso" },
-};
+  path: "/legal/termos-de-uso",
+});
 
 export default function TermsOfUse() {
   return (

@@ -253,7 +253,7 @@ export function Solutions() {
             <Reveal as="article" key={n} delay={i * 0.09} className="glass flex flex-col rounded-[30px] p-3 pb-5.5 md:p-4 md:pb-7.5">
               <Ill />
               <div className="px-2 pt-5 md:px-3.5 md:pt-6.5">
-                <span className="font-mich text-[9.5px] tracking-[.3em] text-paper/40">{n}</span>
+                <span className="font-mich text-[9.5px] tracking-[.3em] text-paper/60">{n}</span>
                 <h3 className="mt-3 mb-2.5 text-[23px] md:text-[clamp(26px,2.3vw,34px)]">
                   {title[0]} <b className="font-medium">{title[1]}</b>
                 </h3>

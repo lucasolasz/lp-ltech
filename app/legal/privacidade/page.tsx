@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalArticle, Review } from "@/components/legal";
+import { pageMetadata } from "@/lib/metadata";
 import { LTECH_CNPJ, LTECH_EMAIL, LTECH_LEGAL_NAME } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Política de privacidade",
   description: "Como a LTECH trata os dados pessoais de quem visita o site ou entra em contato, conforme a LGPD.",
-  alternates: { canonical: "/legal/privacidade" },
-};
+  path: "/legal/privacidade",
+});
 
 export default function PrivacyPolicy() {
   return (

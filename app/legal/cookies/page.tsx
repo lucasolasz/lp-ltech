@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalArticle, Review } from "@/components/legal";
+import { pageMetadata } from "@/lib/metadata";
 import { LTECH_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Política de cookies",
   description: "O que o site da LTECH guarda no seu navegador e como você controla isso.",
-  alternates: { canonical: "/legal/cookies" },
-};
+  path: "/legal/cookies",
+});
 
 export default function CookiePolicy() {
   return (

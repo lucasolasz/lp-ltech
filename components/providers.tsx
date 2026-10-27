@@ -7,7 +7,7 @@ import { REDUCED_MOTION_QUERY, useMediaQuery } from "@/hooks/use-media-query";
 
 const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
 
-/** Routes every in-page `#anchor` click through Lenis so jumps glide instead of snapping. */
+/** Routes every in-page `#anchor` click through Lenis so jumps glide instead of snapping, then moves focus to the target. */
 function AnchorScroll() {
   const lenis = useLenis();
 
@@ -24,6 +24,8 @@ function AnchorScroll() {
       } else {
         target.scrollIntoView({ behavior: "smooth" });
       }
+      // Keyboard and screen-reader users continue from the target (focusable ones, such as the skip link's `<main>`).
+      (target as HTMLElement).focus({ preventScroll: true });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);

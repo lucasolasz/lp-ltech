@@ -15,13 +15,13 @@ export default function ErrorPage({ error, retry }: { error: unknown; retry: () 
   }, [error]);
 
   return (
-    <main className="min-h-svh bg-cream py-24 text-ink md:py-36">
+    <main id="conteudo" tabIndex={-1} className="min-h-svh bg-cream py-24 text-ink outline-none md:py-36">
       <Wrap>
         <Kicker>Erro</Kicker>
         <h1 className="mt-5 mb-5 text-[42px] md:text-[72px]">Algo falhou do nosso lado.</h1>
         <p className="mb-9 max-w-140 text-[16.5px] text-ink/60">
           Tente de novo em instantes. Se continuar, escreva para{" "}
-          <a href={`mailto:${LTECH_EMAIL}`} className="text-lorange underline underline-offset-3">
+          <a href={`mailto:${LTECH_EMAIL}`} className="text-lrust underline underline-offset-3">
             {LTECH_EMAIL}
           </a>
           {digest && <> e informe o código {digest}</>}.

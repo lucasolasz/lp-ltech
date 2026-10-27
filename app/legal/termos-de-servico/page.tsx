@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LegalArticle, Review } from "@/components/legal";
+import { pageMetadata } from "@/lib/metadata";
 import { LTECH_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Termos de serviço",
   description: "Condições gerais dos serviços de IA, automação e sistemas contratados com a LTECH.",
-  alternates: { canonical: "/legal/termos-de-servico" },
-};
+  path: "/legal/termos-de-servico",
+});
 
 export default function TermsOfService() {
   return (

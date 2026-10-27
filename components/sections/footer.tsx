@@ -7,7 +7,7 @@ import logoWhite from "@/public/images/logo-ltech-white.png";
 import octopus from "@/public/images/octopus.png";
 import { CurrentYear } from "./current-year";
 
-const heading = "mb-4 font-mich text-[9px] font-normal tracking-[.3em] text-paper/40";
+const heading = "mb-4 font-mich text-[9px] font-normal tracking-[.3em] text-paper/60";
 const link = "mb-2.25 block text-[14.5px] text-paper/75 transition-colors hover:text-lamber";
 
 /** `linkBase` prefixes the in-page anchors so pages outside the home can point back to its sections. */
@@ -35,7 +35,7 @@ export function Footer({ linkBase = "" }: { linkBase?: string }) {
             </div>
           </div>
           <div>
-            <h4 className={heading}>CONTATO</h4>
+            <p className={heading}>CONTATO</p>
             <a href={`mailto:${LTECH_EMAIL}`} className={link}>
               {LTECH_EMAIL}
             </a>
@@ -45,7 +45,7 @@ export function Footer({ linkBase = "" }: { linkBase?: string }) {
             <p className="mb-2.25 text-[14.5px] text-paper/75">Rio de Janeiro · RJ</p>
           </div>
           <div>
-            <h4 className={heading}>NAVEGAÇÃO</h4>
+            <p className={heading}>NAVEGAÇÃO</p>
             {footerNav.map((item) => (
               <a key={item.label} href={linkBase + item.href} className={link}>
                 {item.label}
@@ -53,7 +53,7 @@ export function Footer({ linkBase = "" }: { linkBase?: string }) {
             ))}
           </div>
           <div>
-            <h4 className={heading}>LEGAL</h4>
+            <p className={heading}>LEGAL</p>
             {LEGAL_PAGES.map((item) => (
               <Link key={item.href} href={item.href} className={link}>
                 {item.label}
@@ -70,7 +70,7 @@ export function Footer({ linkBase = "" }: { linkBase?: string }) {
           />
         </div>
 
-        <div className="relative z-2 flex flex-col justify-between gap-1.5 border-t border-white/8 pt-4.5 font-mich text-[8.5px] tracking-[.28em] text-paper/35 uppercase md:flex-row md:flex-wrap md:gap-3">
+        <div className="relative z-2 flex flex-col justify-between gap-1.5 border-t border-white/8 pt-4.5 font-mich text-[8.5px] tracking-[.28em] text-paper/60 uppercase md:flex-row md:flex-wrap md:gap-3">
           <span>
             © <CurrentYear /> {LTECH_LEGAL_NAME} · CNPJ {LTECH_CNPJ}
           </span>

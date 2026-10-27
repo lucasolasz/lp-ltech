@@ -14,7 +14,7 @@ const prose = cx(
   "[&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:text-[26px] [&_h2]:text-ink md:[&_h2]:text-[32px]",
   "[&_h3]:mt-7 [&_h3]:mb-2.5 [&_h3]:text-lg [&_h3]:font-normal [&_h3]:tracking-[-.01em] [&_h3]:text-ink",
   "[&_p]:mb-4 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-5.5 [&_li]:mb-1.5 [&_strong]:font-normal [&_strong]:text-ink",
-  "[&_a]:text-lorange [&_a]:underline [&_a]:underline-offset-3",
+  "[&_a]:text-lrust [&_a]:underline [&_a]:underline-offset-3",
 );
 
 /** Flags a point that a person must confirm before the text is final. Search the code for `<Review` to list them. */
@@ -32,10 +32,10 @@ export function LegalArticle({ href, title, children }: { href?: LegalHref; titl
   return (
     <article>
       <JsonLd data={legalBreadcrumb(href)} />
-      <nav aria-label="Trilha de navegação" className="mb-8 text-[13px] text-ink/50">
+      <nav aria-label="Trilha de navegação" className="mb-8 text-[13px] text-ink/65">
         <ol className="flex flex-wrap gap-2">
           <li>
-            <Link href="/" className="hover:text-lorange">
+            <Link href="/" className="hover:text-lrust">
               Início
             </Link>
             <span aria-hidden> /</span>
@@ -43,7 +43,7 @@ export function LegalArticle({ href, title, children }: { href?: LegalHref; titl
           {href ? (
             <>
               <li>
-                <Link href="/legal" className="hover:text-lorange">
+                <Link href="/legal" className="hover:text-lrust">
                   Legal
                 </Link>
                 <span aria-hidden> /</span>
@@ -61,13 +61,13 @@ export function LegalArticle({ href, title, children }: { href?: LegalHref; titl
       </nav>
       <Kicker>Legal</Kicker>
       <h1 className="mt-5 mb-4 text-[38px] text-ink md:text-[56px]">{title}</h1>
-      <p className="mb-10 text-[13px] text-ink/50">Vigente desde {updated}</p>
+      <p className="mb-10 text-[13px] text-ink/65">Vigente desde {updated}</p>
       <div className={prose}>{children}</div>
       {href && (
-        <footer className="mt-14 max-w-190 border-t border-ink/10 pt-6 text-[13.5px] text-ink/55">
+        <footer className="mt-14 max-w-190 border-t border-ink/10 pt-6 text-[13.5px] text-ink/65">
           <p>
             {LTECH_LEGAL_NAME} · CNPJ {LTECH_CNPJ} · Dúvidas sobre este documento:{" "}
-            <a href={`mailto:${LTECH_EMAIL}`} className="text-lorange underline underline-offset-3">
+            <a href={`mailto:${LTECH_EMAIL}`} className="text-lrust underline underline-offset-3">
               {LTECH_EMAIL}
             </a>
           </p>
@@ -76,7 +76,7 @@ export function LegalArticle({ href, title, children }: { href?: LegalHref; titl
             {LEGAL_PAGES.filter((p) => p.href !== href).map((p, i) => (
               <span key={p.href}>
                 {i > 0 && " · "}
-                <Link href={p.href} className="text-lorange underline underline-offset-3">
+                <Link href={p.href} className="text-lrust underline underline-offset-3">
                   {p.label}
                 </Link>
               </span>
@@ -90,7 +90,7 @@ export function LegalArticle({ href, title, children }: { href?: LegalHref; titl
 
 export function LegalMain({ children }: { children: ReactNode }) {
   return (
-    <main className="bg-cream py-14 text-ink md:py-20">
+    <main id="conteudo" tabIndex={-1} className="bg-cream py-14 text-ink outline-none md:py-20">
       <Wrap>{children}</Wrap>
     </main>
   );
