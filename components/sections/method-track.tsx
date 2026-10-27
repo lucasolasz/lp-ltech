@@ -216,7 +216,7 @@ export function MethodTrack() {
           <div key={title} ref={(el) => { stepRefs.current[i] = el; }} className="relative flex flex-col">
             <span
               className={cx(
-                "z-2 grid place-items-center rounded-full font-light transition-[background-color,box-shadow,color] duration-600 ease-out-soft",
+                "z-2 grid place-items-center rounded-full bg-ink-deep font-light transition-[background-color,box-shadow,color] duration-600 ease-out-soft",
                 "absolute top-2.5 -left-13 size-11 text-[13px]",
                 "md:relative md:top-auto md:left-auto md:mb-7 md:size-14 md:self-center md:text-[15px]",
                 lit[i] ? cx(gradFill, "text-white shadow-node-lit") : "bg-linear-150 from-white/14 to-white/4 text-paper shadow-node",
