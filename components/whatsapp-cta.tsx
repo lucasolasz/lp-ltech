@@ -51,7 +51,7 @@ export function WhatsAppCta() {
         animate={dockVisible ? { opacity: 1, y: "0%" } : { opacity: 0, y: "120%" }}
         transition={{ duration: 0.7, ease: EASE }}
         className={cx(
-          "fixed inset-x-3 bottom-[calc(12px+env(safe-area-inset-bottom))] z-105 flex items-center gap-2 rounded-full bg-[rgba(14,14,18,.82)] p-2 shadow-dock backdrop-blur-[18px] backdrop-saturate-140 md:hidden",
+          "fixed inset-x-3 bottom-[calc(12px+env(safe-area-inset-bottom))] z-105 flex items-center gap-2 rounded-full bg-[rgba(14,14,18,.95)] p-2 shadow-dock md:hidden",
           !dockVisible && "pointer-events-none",
         )}
       >

@@ -101,8 +101,9 @@ export function Header() {
           "fixed inset-x-0 top-0 pt-[env(safe-area-inset-top)] transition-[background-color,color] duration-400",
           open ? "z-130 bg-transparent text-paper" : "z-100",
           !open && (theme === "light" ? "text-ink" : "text-paper"),
-          !open && !atTop && "backdrop-blur-[16px] backdrop-saturate-140",
-          !open && !atTop && (theme === "light" ? "bg-[rgba(243,241,236,.82)]" : "bg-ink-deep/78"),
+          // Phones skip the frosted blur, which re-samples the page on every scroll frame; a denser tint stands in for it.
+          !open && !atTop && "md:backdrop-blur-[16px] md:backdrop-saturate-140",
+          !open && !atTop && (theme === "light" ? "bg-[rgba(243,241,236,.96)] md:bg-[rgba(243,241,236,.82)]" : "bg-ink-deep/95 md:bg-ink-deep/78"),
         )}
       >
         <div className="relative mx-auto flex h-15.5 max-w-305 items-center justify-between px-[max(20px,env(safe-area-inset-left))] md:h-18.5 md:px-[max(40px,env(safe-area-inset-left))]">

@@ -34,7 +34,12 @@ export function HeroWaves() {
         "lg:absolute lg:top-1/2 lg:right-[5%] lg:z-1 lg:mt-0 lg:w-[min(620px,44vw)] lg:-translate-y-1/2",
       )}
     >
-      <svg viewBox="0 0 800 800" className="absolute inset-0 size-full overflow-visible">
+      {/* Scaling each SVG ring repaints the whole drawing every frame, so phones fade the svg in as one composited layer. */}
+      <svg
+        viewBox="0 0 800 800"
+        style={delay(0.2)}
+        className="absolute inset-0 size-full overflow-visible max-md:animate-core-in motion-reduce:animate-none"
+      >
         <defs>
           <linearGradient id="wgrad" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#FFB36B" />
@@ -51,7 +56,7 @@ export function HeroWaves() {
             strokeDasharray={ring.dashed ? "2 8" : undefined}
             style={delay(0.2 + i * 0.08)}
             className={cx(
-              "origin-center animate-ring-in fill-none transform-fill motion-reduce:animate-none",
+              "origin-center fill-none transform-fill motion-reduce:animate-none md:animate-ring-in",
               ring.accent ? "stroke-[url(#wgrad)] stroke-[1.4] opacity-70" : ring.faint ? "stroke-ink/7" : "stroke-ink/13",
             )}
           />

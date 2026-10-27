@@ -22,13 +22,16 @@ const blobColors = {
   amber: "from-lamber",
 };
 
-/** Soft blurred gradient orb used as section ambience. Stays still on phones, where the drift costs a repaint per frame. */
+/**
+ * Soft blurred gradient orb used as section ambience.
+ * On phones it stays still and unfiltered: the radial fade alone looks the same, and a 600px blur filter is costly there.
+ */
 export function Blob({ color, className }: { color: keyof typeof blobColors; className: string }) {
   return (
     <div
       aria-hidden
       className={cx(
-        "pointer-events-none absolute z-0 rounded-full bg-radial to-transparent to-70% blur-[70px] max-md:animate-none",
+        "pointer-events-none absolute z-0 rounded-full bg-radial to-transparent to-70% blur-[70px] max-md:animate-none max-md:blur-none",
         blobColors[color],
         className,
       )}
