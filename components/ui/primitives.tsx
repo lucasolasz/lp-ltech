@@ -22,13 +22,13 @@ const blobColors = {
   amber: "from-lamber",
 };
 
-/** Soft blurred gradient orb used as section ambience. */
+/** Soft blurred gradient orb used as section ambience. Stays still on phones, where the drift costs a repaint per frame. */
 export function Blob({ color, className }: { color: keyof typeof blobColors; className: string }) {
   return (
     <div
       aria-hidden
       className={cx(
-        "pointer-events-none absolute z-0 rounded-full bg-radial to-transparent to-70% blur-[70px]",
+        "pointer-events-none absolute z-0 rounded-full bg-radial to-transparent to-70% blur-[70px] max-md:animate-none",
         blobColors[color],
         className,
       )}

@@ -2,6 +2,7 @@
 
 import useEmblaCarousel from "embla-carousel-react";
 import { Children, useEffect, useState, type ReactNode } from "react";
+import { Reveal } from "@/components/ui/reveal";
 import { cx } from "@/lib/styles";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -43,17 +44,22 @@ export function SnapCarousel({ children, className }: { children: ReactNode; cla
 
   return (
     <>
-      <div ref={emblaRef} className="relative z-2 max-md:-mx-5 max-md:overflow-hidden">
-        <div
-          className={cx(
-            "max-md:flex max-md:touch-pan-y max-md:touch-pinch-zoom max-md:gap-3 max-md:px-5 max-md:pt-1 max-md:pb-1.5",
-            "max-md:*:min-w-0 max-md:*:shrink-0 max-md:*:grow-0 max-md:*:basis-[84%]",
-            className,
-          )}
-        >
-          {children}
+      {/* Off-screen slides never intersect the viewport, so their own Reveal would keep them hidden until swiped in.
+          On phones the slides are forced visible and the whole carousel reveals once; desktop keeps the per-card stagger. */}
+      <Reveal className="relative z-2 md:transform-none! md:opacity-100!">
+        <div ref={emblaRef} className="max-md:-mx-5 max-md:overflow-hidden">
+          <div
+            className={cx(
+              "max-md:flex max-md:touch-pan-y max-md:touch-pinch-zoom max-md:gap-3 max-md:px-5 max-md:pt-1 max-md:pb-1.5",
+              "max-md:*:min-w-0 max-md:*:shrink-0 max-md:*:grow-0 max-md:*:basis-[84%]",
+              "max-md:*:transform-none! max-md:*:opacity-100!",
+              className,
+            )}
+          >
+            {children}
+          </div>
         </div>
-      </div>
+      </Reveal>
       <div className="mt-4.5 flex items-center justify-between md:hidden" aria-hidden>
         <div className="flex gap-1.5">
           {Array.from({ length: count }, (_, i) => (

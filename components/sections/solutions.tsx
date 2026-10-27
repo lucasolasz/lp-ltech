@@ -18,7 +18,7 @@ const bubbleIn =
 function ChatIllustration() {
   return (
     <div className={cx(illBase, "flex flex-col justify-end gap-2 px-3.5 pt-15 pb-3.5 max-md:h-85 md:px-6.5 md:pt-18 md:pb-5.5")}>
-      <div className="absolute inset-x-0 top-0 z-2 flex items-center gap-2.5 bg-linear-to-b from-[rgba(18,18,22,.95)] to-[rgba(18,18,22,.75)] px-5 py-3.5 text-[12.5px] shadow-[inset_0_-1px_0_rgba(255,255,255,.07)] backdrop-blur-sm">
+      <div className="absolute inset-x-0 top-0 z-2 flex items-center gap-2.5 bg-linear-to-b from-[rgba(18,18,22,.95)] to-[rgba(18,18,22,.75)] px-5 py-3.5 text-[12.5px] shadow-[inset_0_-1px_0_rgba(255,255,255,.07)] md:backdrop-blur-sm">
         <span className={cx("grid size-7 place-items-center rounded-full text-[11px] font-semibold", gradFill)}>L.</span>
         <div>
           Assistente virtual
