@@ -1,53 +1,48 @@
 "use client";
 
-import { Children, useEffect, useRef, useState, type ReactNode } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { Children, useEffect, useState, type ReactNode } from "react";
 import { cx } from "@/lib/styles";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /**
- * Grid on desktop, swipeable snap carousel with pager dots on mobile.
- * Each child should carry its own grid sizing plus `max-md:basis-[84%]`.
+ * Grid on desktop, swipeable Embla carousel with pager dots on mobile.
+ * Embla only claims horizontal drags, so vertical swipes keep scrolling the page.
  */
 export function SnapCarousel({ children, className }: { children: ReactNode; className: string }) {
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "center",
+    // One snap per slide, so the pager index always matches the card index.
+    containScroll: "keepSnaps",
+    // Matches --breakpoint-md: at 760px and up the children lay out as a plain grid.
+    breakpoints: { "(min-width: 760px)": { active: false } },
+  });
   const [active, setActive] = useState(0);
   const count = Children.count(children);
 
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const update = () => {
-      const center = track.scrollLeft + track.clientWidth / 2;
-      let best = Infinity;
-      let index = 0;
-      [...track.children].forEach((child, i) => {
-        const el = child as HTMLElement;
-        const distance = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center);
-        if (distance < best) {
-          best = distance;
-          index = i;
-        }
-      });
-      setActive(index);
-    };
+    if (!emblaApi) return;
+    const update = () => setActive(emblaApi.selectedScrollSnap());
     update();
-    track.addEventListener("scroll", update, { passive: true });
-    return () => track.removeEventListener("scroll", update);
-  }, []);
+    emblaApi.on("select", update).on("reInit", update);
+    return () => {
+      emblaApi.off("select", update).off("reInit", update);
+    };
+  }, [emblaApi]);
 
   return (
     <>
-      <div
-        ref={trackRef}
-        className={cx(
-          "relative z-2",
-          "max-md:-mx-5 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:gap-3 max-md:overflow-x-auto max-md:px-5 max-md:pt-1 max-md:pb-1.5 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden",
-          "max-md:*:min-w-0 max-md:*:shrink-0 max-md:*:grow-0 max-md:*:basis-[84%] max-md:*:snap-center",
-          className,
-        )}
-      >
-        {children}
+      <div ref={emblaRef} className="relative z-2 max-md:-mx-5 max-md:overflow-hidden">
+        <div
+          className={cx(
+            "max-md:flex max-md:touch-pan-y max-md:touch-pinch-zoom max-md:gap-3 max-md:px-5 max-md:pt-1 max-md:pb-1.5",
+            "max-md:*:min-w-0 max-md:*:shrink-0 max-md:*:grow-0 max-md:*:basis-[84%]",
+            className,
+          )}
+        >
+          {children}
+        </div>
       </div>
       <div className="mt-4.5 flex items-center justify-between md:hidden" aria-hidden>
         <div className="flex gap-1.5">
