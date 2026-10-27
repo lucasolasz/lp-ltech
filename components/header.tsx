@@ -100,12 +100,12 @@ export function Header() {
                 <a
                   href={link.href}
                   aria-current={active === link.href ? "location" : undefined}
-                  className="relative block rounded-full px-4.5 py-2 text-[13.5px] font-normal tracking-[.01em] opacity-85 transition-[opacity,color] duration-250 hover:bg-linear-110 hover:from-lflame hover:via-lorange hover:to-lcoral hover:text-white hover:opacity-100 aria-[current=location]:text-white aria-[current=location]:opacity-100"
+                  className="relative block rounded-full px-4.5 py-2 text-[13.5px] font-normal tracking-[.01em] opacity-85 transition-[opacity,color] duration-250 hover:opacity-100 aria-[current=location]:text-white aria-[current=location]:opacity-100"
                 >
                   {active === link.href && (
                     <motion.span
                       layoutId="nav-pill"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.55 }}
                       className="absolute inset-0 rounded-full bg-linear-110 from-lflame via-lorange to-lcoral"
                     />
                   )}
