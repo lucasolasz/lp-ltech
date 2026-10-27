@@ -38,10 +38,10 @@ const CASES = [
     text: "Plataforma integrada com busca inteligente de peças e gestão operacional unificada para o time comercial.",
   },
   {
-    // Logo oficial do Rio Rent a Bike não encontrada: trocar o texto por <Image> quando houver.
+    // Logo oficial do Rio Ride Rental não encontrada: trocar o texto por <Image> quando houver.
     logo: (
       <span className="font-mich text-[13px] font-normal tracking-[.22em] uppercase">
-        Rio Rent a Bike
+        Rio Ride Rental
       </span>
     ),
     title: "Plataforma para locação de motocicletas",
