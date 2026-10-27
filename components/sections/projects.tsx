@@ -23,6 +23,7 @@ const CASES = [
         className="h-8.5 w-auto max-w-47.5 object-contain"
       />
     ),
+    sector: "Varejo automotivo",
     title: "IA comercial para operação de venda direta",
     text: "Atendimento automatizado, qualificação de leads, integração com o CRM e distribuição inteligente dos contatos entre os vendedores.",
   },
@@ -34,6 +35,7 @@ const CASES = [
         className="h-11 w-auto max-w-47.5 object-contain"
       />
     ),
+    sector: "Autopeças",
     title: "Modernização operacional para distribuidor de autopeças",
     text: "Plataforma integrada com busca inteligente de peças e gestão operacional unificada para o time comercial.",
   },
@@ -44,6 +46,7 @@ const CASES = [
         Rio Ride Rental
       </span>
     ),
+    sector: "Locação de motos",
     title: "Plataforma para locação de motocicletas",
     text: "Sistema de reservas, controle de frota e gestão operacional em uma única plataforma integrada.",
   },
@@ -82,9 +85,9 @@ export function Projects() {
               <TiltCard className="glass-light flex h-full flex-col rounded-[28px] px-5.5 py-6.5 md:min-h-72.5 md:px-7.5 md:pt-8 md:pb-8.5">
                 <div className="mb-auto flex flex-col items-start gap-3.5 pb-9">
                   <div className="flex h-12 items-center">{item.logo}</div>
-                  <span className="rounded-full bg-white/60 px-2.75 py-1.75 font-mich text-[8.5px] tracking-[.22em] uppercase inset-ring inset-ring-ink/8">
+                  <span className="rounded-full bg-linear-135 from-lorange/10 to-lcoral/10 px-2.75 py-1.75 font-mich text-[8.5px] tracking-[.22em] text-lrust uppercase inset-ring inset-ring-lorange/20">
                     <i className="mr-2 inline-block size-1.5 rounded-full bg-linear-135 from-lorange to-lcoral" />
-                    Em desenvolvimento
+                    {item.sector}
                   </span>
                 </div>
                 <h3 className="mb-2.5 text-[19px] leading-[1.3] font-normal tracking-[-.015em]">
