@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Michroma, Sora } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const sora = Sora({
@@ -16,9 +17,17 @@ const michroma = Michroma({
 });
 
 export const metadata: Metadata = {
-  title: "LTECH — Inteligência Operacional",
-  description:
-    "LTECH — Inteligência Operacional. IA, automação e sistemas sob medida para reduzir custos, eliminar gargalos e acelerar o crescimento da sua operação.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_TITLE, template: "%s · LTECH" },
+  description: `${SITE_TITLE}. ${SITE_DESCRIPTION}`,
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "LTECH",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION },
 };
 
 export const viewport: Viewport = {

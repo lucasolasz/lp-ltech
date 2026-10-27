@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { whatsappLink } from "@/lib/site";
 import { btn, cx, EASE } from "@/lib/styles";
@@ -59,7 +60,13 @@ export function LeadForm() {
       <button type="submit" className={cx(btn.grad, "mt-2 w-full justify-center")}>
         Fale com a gente →
       </button>
-      <p className="mt-3.5 text-center text-xs text-white/45">Resposta rápida, sem compromisso. Seus dados não são compartilhados.</p>
+      <p className="mt-3.5 text-center text-xs text-white/45">
+        Resposta rápida, sem compromisso. Usamos seus dados só para responder ao seu contato, conforme a{" "}
+        <Link href="/legal/privacidade" className="underline underline-offset-2 hover:text-white/70">
+          Política de privacidade
+        </Link>
+        .
+      </p>
       <AnimatePresence>
         {link && (
           <motion.div
