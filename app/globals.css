@@ -1,26 +1,106 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Design tokens: every value here becomes a Tailwind utility (bg-ink, font-mich, shadow-glass, animate-drift...). */
+@theme {
+  --breakpoint-md: 47.5rem; /* 760px: mobile layout below this */
+  --breakpoint-lg: 65.625rem; /* 1050px: tablet layout below this */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-sora), system-ui, sans-serif;
+  --font-mich: var(--font-michroma), sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-ink: #0b0b0d;
+  --color-ink-deep: #07070a;
+  --color-paper: #f3f3f0;
+  --color-cream: #f4f3ef;
+  --color-sand: #efeeea;
+  --color-lorange: #ff6b00;
+  --color-lcoral: #ff3366;
+  --color-lamber: #ffb36b;
+  --color-lflame: #ff8a3d;
+  --color-lpeach: #ffc08a;
+  --color-ok: #3ddc97;
+  --color-mint: #7df0b9;
+
+  --shadow-glass: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 0 rgba(255, 255, 255, 0.05), 0 30px 80px rgba(0, 0, 0, 0.45);
+  --shadow-glass-light: inset 0 1px 0 #fff, 0 30px 70px rgba(60, 30, 20, 0.12);
+  --shadow-chip: inset 0 1px 0 #fff, 0 0 0 1px rgba(11, 11, 13, 0.05), 0 12px 28px rgba(120, 60, 30, 0.08);
+  --shadow-btn-grad: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -8px 20px rgba(120, 0, 40, 0.25), 0 10px 40px rgba(255, 90, 50, 0.35);
+  --shadow-btn-grad-hover: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -8px 20px rgba(120, 0, 40, 0.25), 0 18px 60px rgba(255, 90, 50, 0.55);
+  --shadow-btn-light: inset 0 1px 0 #fff, 0 0 0 1px rgba(11, 11, 13, 0.08), 0 8px 24px rgba(11, 11, 13, 0.06);
+  --shadow-icon: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-tile: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-glow: 0 0 14px rgba(255, 107, 0, 0.6);
+  --shadow-node: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  --shadow-node-lit: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 0 0 6px rgba(255, 107, 0, 0.16), 0 0 30px rgba(255, 80, 60, 0.45);
+  --shadow-wa: inset 0 2px 0 rgba(255, 255, 255, 0.45), inset 0 -8px 16px rgba(0, 60, 30, 0.3), 0 14px 34px rgba(18, 140, 74, 0.45);
+  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.06), 0 18px 40px rgba(0, 0, 0, 0.35);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-drift: drift 16s ease-in-out infinite;
+  --animate-scan: scan 5s ease-in-out infinite;
+  --animate-typing: typing 1s infinite;
+
+  @keyframes drift {
+    33% { transform: translate(40px, -30px) scale(1.08); }
+    66% { transform: translate(-30px, 25px) scale(0.95); }
+  }
+  @keyframes scan {
+    50% { transform: translate(150px, 0); }
+  }
+  @keyframes typing {
+    50% { opacity: 0.3; transform: translateY(-2px); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Frosted glass card. Kept as a utility because the gradient hairline border needs a masked pseudo-element. */
+@utility glass {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: var(--shadow-glass);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.06) 30%, rgba(255, 255, 255, 0) 60%, rgba(255, 140, 80, 0.45));
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+}
+
+@utility glass-light {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.35));
+  backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow: var(--shadow-glass-light);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(140deg, #fff, rgba(255, 255, 255, 0.2) 40%, rgba(255, 107, 0, 0.35));
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+}
+
+@layer base {
+  html {
+    overflow-x: clip;
+    scroll-padding-top: 64px; /* header height; Lenis reads it too */
+  }
+  body {
+    @apply bg-ink-deep font-sans leading-[1.65] font-light text-paper antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply leading-[1.02] font-extralight tracking-[-0.035em];
+  }
 }
