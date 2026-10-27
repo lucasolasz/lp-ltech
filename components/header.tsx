@@ -11,13 +11,15 @@ import logoWhite from "@/public/images/logo-ltech-white.png";
 
 type Theme = "light" | "dark";
 
-/** Reads which section sits under the header line and whether the hero is still behind it. */
+/** Reads which section sits under the header line, which nav section is in view, and whether the hero is still behind it. */
 function useHeaderState() {
   const [theme, setTheme] = useState<Theme>("light");
   const [atTop, setAtTop] = useState(true);
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
     const sections = [...document.querySelectorAll<HTMLElement>("[data-theme]")];
+    const navSections = NAV_LINKS.map((link) => document.querySelector<HTMLElement>(link.href));
     const hero = document.getElementById("hero");
     const update = () => {
       const current = sections.find((el) => {
@@ -26,6 +28,12 @@ function useHeaderState() {
       });
       setTheme(current?.dataset.theme === "light" ? "light" : "dark");
       setAtTop(!!hero && hero.getBoundingClientRect().bottom > 80);
+      const line = innerHeight * 0.4;
+      const inView = navSections.find((el) => {
+        const r = el?.getBoundingClientRect();
+        return !!r && r.top <= line && r.bottom > line;
+      });
+      setActive(inView ? `#${inView.id}` : null);
     };
     update();
     addEventListener("scroll", update, { passive: true });
@@ -36,11 +44,11 @@ function useHeaderState() {
     };
   }, []);
 
-  return { theme, atTop };
+  return { theme, atTop, active };
 }
 
 export function Header() {
-  const { theme, atTop } = useHeaderState();
+  const { theme, atTop, active } = useHeaderState();
   const [open, setOpen] = useState(false);
   const lenis = useLenis();
   const dark = theme === "dark" || open;
@@ -91,9 +99,17 @@ export function Header() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="block rounded-full px-4.5 py-2 text-[13.5px] font-normal tracking-[.01em] opacity-85 transition-[opacity,color] duration-250 hover:bg-linear-110 hover:from-lflame hover:via-lorange hover:to-lcoral hover:text-white hover:opacity-100"
+                  aria-current={active === link.href ? "location" : undefined}
+                  className="relative block rounded-full px-4.5 py-2 text-[13.5px] font-normal tracking-[.01em] opacity-85 transition-[opacity,color] duration-250 hover:bg-linear-110 hover:from-lflame hover:via-lorange hover:to-lcoral hover:text-white hover:opacity-100 aria-[current=location]:text-white aria-[current=location]:opacity-100"
                 >
-                  {link.label}
+                  {active === link.href && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
+                      className="absolute inset-0 rounded-full bg-linear-110 from-lflame via-lorange to-lcoral"
+                    />
+                  )}
+                  <span className="relative">{link.label}</span>
                 </a>
               </li>
             ))}
@@ -147,10 +163,11 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
+                  aria-current={active === link.href ? "location" : undefined}
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.1 + i * 0.06, ease: EASE }}
-                  className="flex items-baseline gap-4 border-b border-white/8 py-4 text-[32px] font-extralight tracking-[-.02em]"
+                  className="flex items-baseline gap-4 border-b border-white/8 py-4 text-[32px] font-extralight tracking-[-.02em] aria-[current=location]:text-lamber"
                 >
                   <small className="font-mich text-[9px] tracking-[.25em] text-lamber">{String(i + 1).padStart(2, "0")}</small>
                   {link.label}
